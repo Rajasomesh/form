@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>form</title>
+</head>
+<body>
+    <h2 class="heading">Registration Form</h2>
+    <div class="form">
+    
+    <form id="registrationForm">
+        <input type="text" id="name" placeholder="Enter your name" required><br>
+        <input type="text" id="mobile" placeholder="Enter your mobile number" required><br>
+        <input type="email" id="email" placeholder="Enter your email" required><br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="errorMessages"></div>
+</div>
+<script>
+    // Function to validate the name
+    function validateName(name) {
+        const nameRegex = /^[A-Za-z][A-Za-z0-9]{5,}$/; // Starts with alphabet, followed by alphanumeric characters, min 6 characters
+        return nameRegex.test(name);
+    }
+
+    // Function to validate mobile number
+    function validateMobile(mobile) {
+        const mobileRegex = /^\d{10}$/; // Only numbers and exactly 10 digits
+        return mobileRegex.test(mobile);
+    }
+
+    // Function to validate email
+    function validateEmail(email) {
+        const emailRegex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,6}$/; // Basic email format validation 
+        return emailRegex.test(email);
+    }
+
+    // Handle form submission and validation
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const mobile = document.getElementById('mobile').value;
+        const email = document.getElementById('email').value;
+        let errorMessages = '';
+
+        // Validate Name
+        if (!validateName(name)) {
+            errorMessages += 'Name should start with an alphabet, followed by alphanumeric characters and be at least 6 characters long.<br>';
+        }
+
+        // Validate Mobile
+        if (!validateMobile(mobile)) {
+            errorMessages += 'Mobile number should contain exactly 10 digits.<br>';
+        }
+
+        // Validate Email
+        if (!validateEmail(email)) {
+            errorMessages += 'Email should be in the correct format (e.g., xxxxx@xxxxx.xxx).<br>';
+        }
+
+        // Display error messages if any
+        if (errorMessages) {
+            document.getElementById('errorMessages').innerHTML = errorMessages;
+        } else {
+            document.getElementById('errorMessages').innerHTML = 'Registration successful!';
+        }
+    });
+</script>
+</body>
+</html>
